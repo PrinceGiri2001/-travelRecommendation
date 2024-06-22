@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Travel Recommendations</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="home.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <input type="text" id="searchBar" placeholder="Search for recommendations...">
+        <button onclick="searchFunction()">Search</button>
+        <button onclick="resetFunction()">Reset</button>
+        <button onclick="clearFunction()">Clear</button>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to Travel Recommendations</h1>
+        <p>Discover the best travel destinations, tips, and guides to make your next trip unforgettable. Whether you're looking for adventure, relaxation, or cultural experiences, we've got you covered.</p>
+        <div id="recommendations" class="recommendations"></div>
+    </div>
+
+    <script src="recommendations.json"></script>
+</body>
+</html>
