@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2022/03/travel_brochure_design_cover.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #f2f2f2;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .navbar input[type=text] {
+            float: left;
+            padding: 6px;
+            margin: 8px 0;
+            margin-left: 16px;
+            font-size: 17px;
+            border: none;
+            border-radius: 4px;
+        }
+        .navbar button {
+            float: left;
+            padding: 6px 10px;
+            margin: 8px 0;
+            margin-left: 4px;
+            background-color: #555;
+            color: white;
+            font-size: 17px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .navbar button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            text-align: center;
+            padding: 150px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 20px;
+        }
+        .content h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .recommendations {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .recommendation {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            color: white;
+        }
+        .recommendation img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .recommendation h3 {
+            margin-top: 10px;
+        }
+        .recommendation p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="home.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <input type="text" id="searchBar" placeholder="Search for recommendations...">
+        <button onclick="searchFunction()">Search</button>
+        <button onclick="resetFunction()">Reset</button>
+        <button onclick="clearFunction()">Clear</button>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to Travel Recommendations</h1>
+        <p>Discover the best travel destinations, tips, and guides to make your next trip unforgettable. Whether you're looking for adventure, relaxation, or cultural experiences, we've got you covered.</p>
+        <div id="recommendations" class="recommendations"></div>
+    </div>
+
+    <script>
+        let recommendationsData = {
+            countries: [
+                {
+                    id: 1,
+                    name: "Australia",
+                    cities: [
+                        {
+                            name: "Sydney, Australia",
+                            imageUrl: "https://media.tatler.com/photos/6141d37b9ce9874a3e40107d/16:9/w_1280,c_limit/social_crop_sydney_opera_house_gettyimages-869714270.jpg",
+                            description: "A vibrant city known for its iconic landmarks like the Sydney Opera House and Sydney Harbour Bridge."
+                        },
+                        {
+                            name: "Melbourne, Australia",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/19/Melburnian_Skyline.jpg",
+                            description: "A cultural hub famous for its art, food, and diverse neighborhoods."
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "Japan",
+                    cities: [
+                        {
+                            name: "Tokyo, Japan",
+                            imageUrl: "https://media.cntraveller.com/photos/6343df288d5d266e2e66f082/16:9/w_2560%2Cc_limit/tokyoGettyImages-1031467664.jpeg",
+                            description: "A bustling metropolis blending tradition and modernity, famous for its cherry blossoms and rich culture."
+                        },
+                        {
+                            name: "Kyoto, Japan",
+                            imageUrl: "https://www.japan-guide.com/thumb/XYZeXYZe2158_1680b.jpg",
+                            description: "Known for its historic temples, gardens, and traditional tea houses."
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: "Brazil",
+                    cities: [
+                        {
+                            name: "Rio de Janeiro, Brazil",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/800px-Cidade_Maravilhosa.jpg",
+                            description: "A lively city known for its stunning beaches, vibrant carnival celebrations, and iconic landmarks."
+                        },
+                        {
+                            name: "São Paulo, Brazil",
+                            imageUrl: "https://singularityhub.com/uploads/2018/04/sao-paulo-octavio-frias-de-oliveira-bridge-brazil-latin-america-153080222.jpg",
+                            description: "The financial hub with diverse culture, arts, and a vibrant nightlife."
+                        }
+                    ]
+                }
+            ],
+            temples: [
+                {
+                    id: 1,
+                    name: "Angkor Wat, Cambodia",
+                    imageUrl: "https://cambodia-images.com/wp-content/uploads/2018/05/sunrise-angkor-wat_1.jpg",
+                    description: "A UNESCO World Heritage site and the largest religious monument in the world."
+                },
+                {
+                    id: 2,
+                    name: "Taj Mahal, India",
+                    imageUrl: "https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg",
+                    description: "An iconic symbol of love and a masterpiece of Mughal architecture."
+                }
+            ],
+            beaches: [
+                {
+                    id: 1,
+                    name: "Bora Bora, French Polynesia",
+                    imageUrl: "https://cdn.pixabay.com/photo/2017/12/16/22/22/bora-bora-3023437_1280.jpg",
+                    description: "An island known for its stunning turquoise waters and luxurious overwater bungalows."
+                },
+                {
+                    id: 2,
+                    name: "Copacabana Beach, Brazil",
+                    imageUrl: "https://www.shutterstock.com/image-photo/copacabana-beach-rio-de-janeiro-260nw-1369316822.jpg",
+                    description: "A famous beach in Rio de Janeiro, Brazil, with a vibrant atmosphere and scenic views."
+                }
+            ]
+        };
+
+        function displayRecommendations(category) {
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+
+            recommendationsData[category].forEach(item => {
+                const recommendationDiv = document.createElement('div');
+                recommendationDiv.classList.add('recommendation');
+                recommendationDiv.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                `;
+                recommendationsDiv.appendChild(recommendationDiv);
+            });
+        }
+
+        function searchFunction() {
+            const searchBar = document.getElementById('searchBar');
+            const keyword = searchBar.value.toLowerCase();
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+
+            let found = false;
+
+            // Search in countries
+            recommendationsData.countries.forEach(country => {
+                country.cities.forEach(city => {
+                    if (city.name.toLowerCase().includes(keyword)) {
+                        const recommendationDiv = document.createElement('div');
+                        recommendationDiv.classList.add('recommendation');
+                        recommendationDiv.innerHTML = `
+                            <img src="${city.imageUrl}" alt="${city.name}">
+                            <h3>${city.name}</h3>
+                            <p>${city.description}</p>
+                        `;
+                        recommendationsDiv.appendChild(recommendationDiv);
+                        found = true;
+                    }
+                });
+            });
+
+            // Search in temples
+            recommendationsData.temples.forEach(temple => {
+                if (temple.name.toLowerCase().includes(keyword)) {
+                    const recommendationDiv = document.createElement('div');
+                    recommendationDiv.classList.add('recommendation');
+                    recommendationDiv.innerHTML = `
+                        <img src="${temple.imageUrl}" alt="${temple.name}">
+                        <h3>${temple.name}</h3>
+                        <p>${temple.description}</p>
+                    `;
+                    recommendationsDiv.appendChild(recommendationDiv);
+                    found = true;
+                }
+            });
+
+            // Search in beaches
+            recommendationsData.beaches.forEach(beach => {
+                if (beach.name.toLowerCase().includes(keyword)) {
+                    const recommendationDiv = document.createElement('div');
+                    recommendationDiv.classList.add('recommendation');
+                    recommendationDiv.innerHTML = `
+                        <img src="${beach.imageUrl}" alt="${beach.name}">
+                        <h3>${beach.name}</h3>
+                        <p>${beach.description}</p>
+                    `;
+                    recommendationsDiv.appendChild(recommendationDiv);
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                recommendationsDiv.innerHTML = '<p>No recommendations found for this keyword.</p>';
+            }
+        }
+
+        function resetFunction() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.value = '';
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+            alert('Search results cleared');
+        }
+
+        function clearFunction() {
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+            alert('Recommendations cleared');
+        }
+    </script>
+</body>
+</html>
