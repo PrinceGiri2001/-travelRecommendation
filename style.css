@@ -1,17 +1,25 @@
-/* style.css */
-
-body {
-    font-family: Arial, sans-serif;
+/* Reset default browser styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global body styles */
+body {
+    font-family: Arial, sans-serif;
     background: url('https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2022/03/travel_brochure_design_cover.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #f2f2f2;
+    margin: 0;
+    padding: 0;
 }
 
+/* Global navbar styles */
 .navbar {
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
 }
 
 .navbar a {
@@ -56,6 +64,7 @@ body {
     color: black;
 }
 
+/* Global content styles */
 .content {
     text-align: center;
     padding: 150px 20px;
@@ -75,6 +84,7 @@ body {
     margin: 0 auto;
 }
 
+/* Recommendations section styles */
 .recommendations {
     display: flex;
     flex-wrap: wrap;
