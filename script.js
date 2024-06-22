@@ -2,7 +2,7 @@
 fetch('recommendations.json')
     .then(response => response.json())
     .then(data => {
-        recommendationsData = data;
+        const recommendationsData = data;
         // Call any function that depends on recommendationsData here
         // For example, you can call displayRecommendations('countries');
     })
